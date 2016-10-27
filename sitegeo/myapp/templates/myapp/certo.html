@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drawing tools</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=drawing"></script>
+    <script>
+function initialize() {
+  var mapOptions = {
+    center: new google.maps.LatLng(-34.397, 150.644),
+    zoom: 8
+  };
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
+  //alert(map);
+  //alert(MARKER);
+  //google.maps.event.addListener(map, 'click', addLatLng);
+   var path = poly.getPath();
+
+   path.push(event.latLng);
+
+  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.MARKER,
+    drawingControl: true,
+    ponto: event.latLng,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        //google.maps.drawing.OverlayType.MARKER,
+        //google.maps.drawing.OverlayType.CIRCLE,
+        google.maps.drawing.OverlayType.POLYGON,
+        //google.maps.drawing.OverlayType.POLYLINE,
+        //google.maps.drawing.OverlayType.RECTANGLE
+      ]
+      //alert(POLYGON);
+      //alert(ControlPosition);
+    }
+    //alert(POLYTGON);
+    // markerOptions: {
+    //   icon: 'images/beachflag.png'
+    // },
+    // circleOptions: {
+    //   fillColor: '#ffff00',
+    //   fillOpacity: 1,
+    //   strokeWeight: 5,
+    //   clickable: false,
+    //   editable: true,
+    //   zIndex: 1
+    // }
+  });
+  //alert(drawingManager.ponto);
+  // alert(drawingMode);
+  
+  //alert(drawingManager.position);
+  //alert(MARKER);
+  //alert(MARKER);
+  //alert(POLYGON);
+  //alert(DrawingManager);
+  //alert(polygonOptions );
+  drawingManager.setMap(map);
+  function teste() {
+//alert(drawingManager.position);
+drawingManager.setMap(null);
+
+}
+  //alert(map)
+  //alert(drawingManager);
+  //alert(drawing);
+  //alert(position);
+}  
+//alert(POLIGON);
+//alert(drawing);
+//alert(MARKER);
+google.maps.event.addDomListener(window, 'load', initialize);
+function teste() {
+alert(drawingManager.position);
+//drawingManager.setMap(null);
+  alert(drawingManager.ponto);
+
+}
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <div id="panel">
+      <input type="button" onclick="teste()" value="teste">
+   </div>
+  </body>
+</html>
