@@ -4,13 +4,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 def index(request):
-    return render(request,'myapp/index_poligono.html')
+    return render(request,'myapp/index.html')
 
 def geocoding(request):
     return render(request,'myapp/geocoding-reverse.html')
 
-def teste(request):
-    return render(request, 'myapp/teste.html')
     
 def processar(request):
     if request.method == 'POST':
@@ -50,7 +48,7 @@ def processar(request):
 		#return criar_poligono
     
     else:
-        return render(request,'myapp/index_poligono.html')
+        return render(request,'myapp/index.html')
 
 def compara(request):
 

@@ -1,0 +1,101 @@
+<html> 
+	<head> 
+
+
+
+	    <title></title>
+
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 	
+		<link rel="stylesheet" type="text/css" href="../static/css/style.css/">
+	    <link rel="stylesheet" type="text/css" href="../static/css/semantic.css"/>
+	    <link rel="stylesheet" type="text/css" href="../static/css/semantic.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="../static/js/semantic.js"/>
+	    <link rel="stylesheet" type="text/css" href="../static/js/semantic.min.js"/>
+
+
+
+
+	    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+		<script type="text/javascript" src="/teste/"></script>
+		<script type="text/javascript" src="/jquery/"></script>
+		<script type="text/javascript" src="/poligono/"></script>
+		
+		<script type="text/javascript">
+			$(function(){
+				//create map
+				var myCenter = new google.maps.LatLng(-26.299869,-48.845216);
+				var myOptions = {
+					zoom: 12,
+					center: myCenter,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+				map = new google.maps.Map(document.getElementById('main-map'), myOptions);
+
+				var creator = new PolygonCreator(map);
+
+				//reset
+				$('#reset').click(function(){ 
+						creator.destroy();
+						creator=null;
+						
+						creator=new PolygonCreator(map);
+				   // alert(map);
+				   document.getElementById("dataPanel").value="";
+				});		 
+
+
+				//show paths
+				$('#showData').click(function(){ 
+						$('#dataPanel').empty();
+						if(null==creator.showData()){
+							$('#dataPanel').append('Primeiro crie o poligono');
+						//document.getElementById("dataPanel").value=creator.showData();
+						//creator.showData=document.getElementById("dataPanel").value
+						//var creator.showData=document.getElementById("dataPanel").value;
+						//document.getElementById("dataPanel").value=creator.showData;
+						}else{
+							$('#dataPanel').append(creator.showData());
+							document.getElementById("dataPanel").value=creator.showData();
+						}
+						alert(creator.showData());
+				});
+			});	
+		</script>
+	</head>
+	<body>
+		<div class="ui segments">
+			<div class="ui segment">
+				<h1 class="ui header"><font><font><p>Selecione a área para consulta</p></font></font></h1>
+			</div>
+
+	  		<div class="ui segment">
+				<div class="ui grid">
+					<div id="main-map" class="thirteen wide column"></div>
+					<div id="consulta" class="three wide column">
+						<h3 class="ui dividing header">Dados da consulta</h3>
+						<button id="showData" class="fluid ui green button">Obter pontos</button>
+					 	<form class="ui form" action="/processar/" method="POST"> {% csrf_token %} 
+							<div class="field">
+								<div class="ui disabled input">
+									<input type="text" name="pontos" id="dataPanel"  placeholder="Pontos...">
+								</div>
+							</div>
+							<div class="field">
+								<label>Nome:</label>
+								<input type="text" name="n_ponto">
+							</div>
+							<div id="reset" class="ui clear button"> Limpar</div>
+							<button class="positive ui button" type="submit">Enviar</button>
+						</fom>
+					</div>
+
+					<div class="sixteen wide column">A cada clique um ponto é inserido na coordenada do poligono (área a ser consultada)</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</body>
+</html>

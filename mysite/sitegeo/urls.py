@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^inicio/$', 'myapp.views.index', name='myapp_index_poligono'),
+    url(r'^index/$', 'myapp.views.index', name='myapp_index'),
     url(r'^processa/$', 'myapp.views.processo', name='myapp_processo'),
  	url(r'^style/$', 'myapp.views.style', name='myapp_style'),
     url(r'^jquery/$', 'myapp.views.jquery', name='myapp_jquery'),

@@ -1,60 +1,12 @@
-html,body{
-	margin:0;
-	padding:0;
-	width:100%;
-	height:100%;
-	font-family:Arial, Helvetica, sans-serif;
-}
 
-form.pay{
-	width:200px;
-	display:inline;
-}
-div#header{	
-	vertical-align:middle;
-	border-bottom:1px solid #000;
-}
+
 div#main-map{
-	width:70%;
+	height:80%;
+}
+div#consulta{
 	height:70%;
-	float:left;
-}
-div#side{
-	width:30%;
-	float:left;
 }
 
-div#dataPanel{
-	width:90%;
-	height:50%;
-	overflow:auto;
-	border:2px solid #DDDDDD;
-}
-div#side input{
-	width:90%;
-}
-
-div#side input.navi{
-	font-size:18px;
-	height:30px;
-	margin-bottom:10px;
-}
-div ul{
-	margin-top:30px;
-	margin-bottom:30px;
-}
-div ul li{
-	display: inline;
-	list-style-type: none;
-	padding-right: 40px;
-	font-size:18px;
-	font-weight:bold;
-}
-
-div ul li.title{
-	font-size:22px;
-	color:#888;
-}
 
 div#header p{
 	color:#888;
