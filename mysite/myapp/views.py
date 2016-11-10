@@ -64,25 +64,26 @@ def compara(request):
     cur = conn.cursor()
     cur.execute("SELECT  MAX(id_infracao) FROM infracao")
     res = cur.fetchone()
-    cont_id = res[0]
+    n_infracao = res[0]
 
     l=[]
-    while cont_id > 0:
-        cur.execute("SELECT ST_INTERSECTS((SELECT ST_ASTEXT(local) FROM consulta ORDER BY id_consulta DESC LIMIT(1)),(SELECT  ST_ASTEXT(localizacao) FROM infracao WHERE id_infracao = %d))"%cont_id)
+    while n_infracao > 0:
+        cur.execute("SELECT ST_INTERSECTS((SELECT ST_ASTEXT(local) FROM consulta ORDER BY id_consulta DESC LIMIT(1)),(SELECT  ST_ASTEXT(localizacao) FROM infracao WHERE id_infracao = %d))"%n_infracao)
         res_1 = cur.fetchone()
-        if res_1[0] == True:
-            cur.execute("SELECT  ST_ASTEXT(localizacao) FROM infracao WHERE id_infracao = %d" %cont_id)
+        intersects = res_1[0]
+        if intersects == True:
+            cur.execute("SELECT ST_ASTEXT(localizacao) FROM infracao WHERE id_infracao = %d" %n_infracao)
             res_2 = cur.fetchone()
-
-            l.append(res_2[0])
+            local_infracao = res_2[0]
+            l.append(local_infracao)
             
-        cont_id -=1
+        n_infracao -=1
 
     l_coord=[]
     for i in l:
         pontos = i[6:-1]
         l_coord.append(pontos)
-    
+
     #print(l_coord)
     return render(request,'myapp/recebepontos.html', {'l_coord': l_coord})
 
