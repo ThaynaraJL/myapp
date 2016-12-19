@@ -21,7 +21,7 @@ def processar(request):
         global cur
 
         conn = psycopg2.connect("\
-            dbname='detransII_geo'\
+            dbname='Detrans_dw'\
             user='postgres'\
             host='localhost'\
             password='root'\
@@ -42,7 +42,7 @@ def processar(request):
             
         criar_poligono = criar_poligono.replace("(","")
 
-        cur.execute("insert into consulta(nome,local) values('%s',st_geometryfromtext('POLYGON((%s))',4326))"%(n_ponto,criar_poligono))
+        cur.execute("INSERT INTO consulta(nome,local) VALUES('%s',st_geometryfromtext('POLYGON((%s))',4326))"%(n_ponto,criar_poligono))
         conn.commit()
         return render(request,'myapp/processa.html', {'criar_poligono': criar_poligono, 'pontos':pontos })
 		#return criar_poligono
@@ -56,23 +56,23 @@ def compara(request):
     global cur
 
     conn = psycopg2.connect("\
-        dbname='detransII_geo'\
+        dbname='Detrans_dw'\
         user='postgres'\
         host='localhost'\
         password='root'\
     ")
     cur = conn.cursor()
-    cur.execute("SELECT  MAX(id_infracao) FROM infracao")
+    cur.execute("SELECT  MAX(chave_tec) FROM infracao")
     res = cur.fetchone()
     n_infracao = res[0]
 
     l=[]
     while n_infracao > 0:
-        cur.execute("SELECT ST_INTERSECTS((SELECT ST_ASTEXT(local) FROM consulta ORDER BY id_consulta DESC LIMIT(1)),(SELECT  ST_ASTEXT(localizacao) FROM infracao WHERE id_infracao = %d))"%n_infracao)
+        cur.execute("SELECT ST_INTERSECTS((SELECT ST_ASTEXT(local) FROM consulta ORDER BY id_consulta DESC LIMIT(1)),(SELECT  ST_ASTEXT(localizacao) FROM infracao WHERE chave_tec = %d))"%n_infracao)
         res_1 = cur.fetchone()
         intersects = res_1[0]
         if intersects == True:
-            cur.execute("SELECT ST_ASTEXT(localizacao) FROM infracao WHERE id_infracao = %d" %n_infracao)
+            cur.execute("SELECT ST_ASTEXT(localizacao) FROM infracao WHERE chave_tec = %d" %n_infracao)
             res_2 = cur.fetchone()
             local_infracao = res_2[0]
             l.append(local_infracao)
