@@ -66,26 +66,30 @@ def compara(request):
     res = cur.fetchone()
     n_infracao = res[0]
 
-    l=[]
+    l={}
     while n_infracao > 0:
         cur.execute("SELECT ST_INTERSECTS((SELECT ST_ASTEXT(local) FROM consulta ORDER BY id_consulta DESC LIMIT(1)),(SELECT  ST_ASTEXT(localizacao) FROM infracao WHERE chave_tec = %d))"%n_infracao)
         res_1 = cur.fetchone()
         intersects = res_1[0]
         if intersects == True:
-            cur.execute("SELECT ST_ASTEXT(localizacao) FROM infracao WHERE chave_tec = %d" %n_infracao)
+            cur.execute("SELECT ST_ASTEXT(localizacao),chave_tec FROM infracao WHERE chave_tec = %d" %n_infracao)
             res_2 = cur.fetchone()
             local_infracao = res_2[0]
-            l.append(local_infracao)
+            id_infracao = res_2[1]
+            l[id_infracao]= local_infracao
             
         n_infracao -=1
 
-    l_coord=[]
+    x=[]
+    d_coord={}
     for i in l:
-        pontos = i[6:-1]
-        l_coord.append(pontos)
-
-    #print(l_coord)
-    return render(request,'myapp/recebepontos.html', {'l_coord': l_coord})
+        pos= l[i]
+        d_coord[i] = pos[6:-1]
+        x.append(d_coord[i])
+    #print x
+    
+    #print(d_coord)
+    return render(request,'myapp/recebepontos.html', {'d_coord': d_coord, 'l_coord':x})
 
 
 def style(request):
