@@ -41,6 +41,9 @@
 						creator=new PolygonCreator(map);
 				   // alert(map);
 				   document.getElementById("dataPanel").value="";
+				   document.getElementById("inicio").value="";
+				   document.getElementById("fim").value="";
+				   document.getElementById("nome_ponto").value="";
 				});		 
 
 
@@ -81,17 +84,31 @@
 									<input type="text" name="pontos" id="dataPanel"  placeholder="Pontos...">
 								</div>
 							</div>
+							<div class="two fields">
+		                        <div class="field">
+		                            <label>Data Inicial</label>
+		                            <input type="text" name="data_inicio" id="inicio" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="" required>
+		                        </div>
+
+		                        <div class="field">
+		                            <label>Data Final</label>
+		                            <input type="text" name="data_fim" id="fim" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}"  placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="" required>
+		                        </div>
+                   			</div>
 							<div class="field">
 								<label>Nome:</label>
-								<input type="text" name="n_ponto">
+								<input type="text" name="n_ponto" id="nome_ponto">
 							</div>
 							<div id="reset" class="ui clear button"> Limpar</div>
 							<button class="positive ui button" type="submit">Enviar</button>
 						</fom>
+						<div class="field">
+							<form class="ui form" action="/exibeinfracoes/" method="POST"> {% csrf_token %}
+								<button class="ui secondary basic button" type="submit">Enviar</button>
+							</form>
+						</div>
 					</div>
-
 					<div class="sixteen wide column">A cada clique um ponto é inserido na coordenada do poligono (área a ser consultada)</div>
-
 				</div>
 
 			</div>
