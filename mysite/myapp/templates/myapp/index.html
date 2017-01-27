@@ -27,7 +27,7 @@
 				var myOptions = {
 					zoom: 12,
 					center: myCenter,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
+					mapTypeId: google.maps.MapTypeId.HYBRID//MapTypeId.SATELLITE //MapTypeId.ROADMAP
 				}
 				map = new google.maps.Map(document.getElementById('main-map'), myOptions);
 
@@ -87,12 +87,12 @@
 							<div class="two fields">
 		                        <div class="field">
 		                            <label>Data Inicial</label>
-		                            <input type="text" name="data_inicio" id="inicio" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="" required>
+		                            <input type="text" name="data_inicio" id="inicio" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="02/01/2013"required>
 		                        </div>
 
 		                        <div class="field">
 		                            <label>Data Final</label>
-		                            <input type="text" name="data_fim" id="fim" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}"  placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="" required>
+		                            <input type="text" name="data_fim" id="fim" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}"  placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="01/12/2015" required>
 		                        </div>
                    			</div>
 							<div class="field">
@@ -102,11 +102,7 @@
 							<div id="reset" class="ui clear button"> Limpar</div>
 							<button class="positive ui button" type="submit">Enviar</button>
 						</fom>
-						<div class="field">
-							<form class="ui form" action="/exibeinfracoes/" method="POST"> {% csrf_token %}
-								<button class="ui secondary basic button" type="submit">Enviar</button>
-							</form>
-						</div>
+						
 					</div>
 					<div class="sixteen wide column">A cada clique um ponto é inserido na coordenada do poligono (área a ser consultada)</div>
 				</div>

@@ -26,7 +26,7 @@
 			var myOptions = {
 				zoom: 12,
 			  	center: myCenter,
-			  	mapTypeId: google.maps.MapTypeId.ROADMAP
+			  	mapTypeId: google.maps.MapTypeId.HYBRID//MapTypeId.SATELLITE //MapTypeId.ROADMAP
 			}
 			map = new google.maps.Map(document.getElementById('main-map'), myOptions);
 			coordenadas = document.getElementById('coordenadas').value;
@@ -73,6 +73,11 @@
 				<div class="sixteen wide column">Informações da consulta
 				<textarea id="infos">{% for i in d_coord %}{{ i }};{% endfor %}</textarea>
 				</div>
+			</div>
+			<div class="ui segment">
+				<form class="ui form" action="/exibeinfracoes/">
+					<button class="ui secondary basic button">Exibir todas</button>
+				</form>
 			</div>
 
 		</div>

@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^compara/$','myapp.views.compara', name='myapp_compara'),
     url(r'^geocoding/$', 'myapp.views.geocoding', name='myapp_geocoding'),
     url(r'^teste/$', 'myapp.views.teste', name='myapp_teste'),
+    url(r'^exibeinfracoes/$', 'myapp.views.exibeinfracoes', name='myapp_exibeinfracoes'),
 
 
 

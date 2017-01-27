@@ -49,7 +49,7 @@ def processar(request):
 
         cur.execute("INSERT INTO consulta(nome,local,data_inicial,data_final) VALUES('%s',st_geometryfromtext('POLYGON((%s))',4326),'%s','%s')"%(n_ponto,criar_poligono,dt_inicio,dt_fim))
         conn.commit()
-        return render(request,'myapp/processa.html', {'criar_poligono': criar_poligono, 'pontos':pontos, 'dt_ini':dt_inicio,'dt_fim':dt_fim })
+        return render(request,'myapp/processa.html')
 		#return criar_poligono
     
     else:
@@ -67,7 +67,9 @@ def compara(request):
         password='root'\
     ")
     cur = conn.cursor()
-    cur.execute("SELECT incao.chave_tec FROM infracao incao, dataperiodo dt where incao.dataperiodo_id = dt.chave_data and dt.datacomp between '31/05/2015' and '01/12/2015'")
+    cur.execute("SELECT TO_CHAR(data_inicial, 'DD-MM-YYYY') , TO_CHAR(data_final, 'DD-MM-YYYY') FROM consulta ORDER BY id_consulta DESC LIMIT(1)")
+    resul_intervalo =cur.fetchone()
+    cur.execute("SELECT incao.chave_tec FROM infracao incao, dataperiodo dt where incao.dataperiodo_id = dt.chave_data and dt.datacomp between '%s' and '%s'"%(resul_intervalo[0],resul_intervalo[1]))
     resul_consulta_data = cur.fetchall()
     
 
@@ -109,30 +111,18 @@ def exibeinfracoes(request):
         password='root'\
     ")
     cur = conn.cursor()
-    cur.execute("SELECT incao.chave_tec FROM infracao incao")
-    resul = cur.fetchall()
-    
 
-    l={}
-    for resultado in resul:
-        n_infracao = resultado[0]
-        
-        cur.execute("SELECT ST_ASTEXT(localizacao) FROM infracao WHERE chave_tec = %d group by(localizacao)" %n_infracao)
-        res_2 = cur.fetchone()
-        local_infracao = res_2[0]
-        id_infracao = n_infracao
-        l[id_infracao]= local_infracao
-            
-
+    cur.execute("SELECT ST_ASTEXT(localizacao) FROM infracao group by(localizacao)")
+    res_2 = cur.fetchall()
+    l=[]
+    for local in res_2:
+        local_infracao = local[0]
+        l.append(local_infracao)
     coordenadas=[]
-    d_coord={}
     for i in l:
-        pos= l[i]
-        #POINT(0 70)
-        d_coord[i] = pos[6:-1] #obtem os valores que estão entre parênteses
-        coordenadas.append(d_coord[i])
+        coordenadas.append(i[6:-1])
 
-    return render(request,'myapp/exibetodos.html', {'d_coord': d_coord, 'l_coord':coordenadas})
+    return render(request,'myapp/exibetodos.html', {'l_coord':coordenadas})
 
 
 
