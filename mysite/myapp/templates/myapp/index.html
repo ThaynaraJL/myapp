@@ -81,13 +81,13 @@
 					 	<form class="ui form" action="/processar/" method="POST"> {% csrf_token %} 
 							<div class="field">
 								<div class="ui disabled input">
-									<input type="text" name="pontos" id="dataPanel"  placeholder="Pontos...">
+									<input type="text" name="pontos" id="dataPanel"  placeholder="Pontos..." required>
 								</div>
 							</div>
 							<div class="two fields">
 		                        <div class="field">
 		                            <label>Data Inicial</label>
-		                            <input type="text" name="data_inicio" id="inicio" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="02/01/2013"required>
+		                            <input type="text" name="data_inicio" id="inicio" maxlength="10" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/aaaa" title="Insira uma data no formato dd/mm/aaaa" value="02/01/2013" required>
 		                        </div>
 
 		                        <div class="field">
@@ -97,7 +97,7 @@
                    			</div>
 							<div class="field">
 								<label>Nome:</label>
-								<input type="text" name="n_ponto" id="nome_ponto">
+								<input type="text" name="n_ponto" id="nome_ponto" required>
 							</div>
 							<div id="reset" class="ui clear button"> Limpar</div>
 							<button class="positive ui button" type="submit">Enviar</button>
